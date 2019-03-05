@@ -1,0 +1,171 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.23 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use DBMS
+Database changed
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| dbms               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> drop database dbms;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create database Assignment2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use Assignment2
+Database changed
+
+mysql> create table employees (empno varchar(5),
+    -> empname varchar(10),
+    -> address varchar(20),
+    -> dob date,
+    -> doj date,
+    -> salary int(8),
+    -> primary key (empno));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> check table employees ;
++-----------------------+-------+----------+----------+
+| Table                 | Op    | Msg_type | Msg_text |
++-----------------------+-------+----------+----------+
+| assignment2.employees | check | status   | OK       |
++-----------------------+-------+----------+----------+
+1 row in set (0.01 sec)
+
+mysql> desc employees;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empno   | varchar(5)  | NO   | PRI | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| dob     | date        | YES  |     | NULL    |       |
+| doj     | date        | YES  |     | NULL    |       |
+| salary  | int(8)      | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+
+mysql> insert into employee values('a-101', 'suman', '20 convent road', '1976-02-03', '2003-05-05', 20000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employees;
++-------+---------+-----------------+------------+------------+--------+
+| empno | empname | address         | dob        | doj        | salary |
++-------+---------+-----------------+------------+------------+--------+
+| a-101 | suman   | 20 convent road | 1976-02-03 | 2003-05-05 |  20000 |
++-------+---------+-----------------+------------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into employees
+    -> Values
+    -> ('a-103', 'bobby', 'p.p. colony', '1973-05-07', '2002-05-07', 12000),
+    -> ('b-101', 'shekhar', 'bidhannagar kol-66', '1971-09-08', '2002-07-07', 14000),
+    -> ('c-101', 'bobby', 'behala cal-34', '1970-05-07', '2002-05-07', 5000);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into employees
+    -> Values
+    -> ('a-105', 'sugoutam', 'new market cal-71', '1968-05-08', '2002-07-03', 15000),
+    -> ('a-104', 'bikas', 'p.p. colony', '1973-05-07', '2002-05-07', 11000),
+    -> ('a-109', 'sumanta', 'p.p. colony', '1973-05-07', '2002-05-07', 12000);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees ;
++-------+----------+--------------------+------------+------------+--------+
+| empno | empname  | address            | dob        | doj        | salary |
++-------+----------+--------------------+------------+------------+--------+
+| a-101 | suman    | 20 convent road    | 1976-02-03 | 2003-05-05 |  20000 |
+| a-103 | bobby    | p.p. colony        | 1973-05-07 | 2002-05-07 |  12000 |
+| b-101 | shekhar  | bidhannagar kol-66 | 1971-09-08 | 2002-07-07 |  14000 |
+| c-101 | bobby    | behala cal-34      | 1970-05-07 | 2002-05-07 |   5000 |
+| a-105 | sugoutam | new market cal-71  | 1968-05-08 | 2002-07-03 |  15000 |
+| a-104 | bikas    | p.p. colony        | 1973-05-07 | 2002-05-07 |  11000 |
+| a-109 | sumanta  | p.p. colony        | 1973-05-07 | 2002-05-07 |  12000 |
++-------+----------+--------------------+------------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employees where salary > 12000;
++-------+----------+--------------------+------------+------------+--------+
+| empno | empname  | address            | dob        | doj        | salary |
++-------+----------+--------------------+------------+------------+--------+
+| a-101 | suman    | 20 convent road    | 1976-02-03 | 2003-05-05 |  20000 |
+| b-101 | shekhar  | bidhannagar kol-66 | 1971-09-08 | 2002-07-07 |  14000 |
+| a-105 | sugoutam | new market cal-71  | 1968-05-08 | 2002-07-03 |  15000 |
++-------+----------+--------------------+------------+------------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select * from employees where empname = 'bobby';
++-------+---------+---------------+------------+------------+--------+
+| empno | empname | address       | dob        | doj        | salary |
++-------+---------+---------------+------------+------------+--------+
+| a-103 | bobby   | p.p. colony   | 1973-05-07 | 2002-05-07 |  12000 |
+| c-101 | bobby   | behala cal-34 | 1970-05-07 | 2002-05-07 |   5000 |
++-------+---------+---------------+------------+------------+--------+
+2 rows in set (0.01 sec)
+
+mysql> update employees set salary = 15000 where empname = 'bikas';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employees where empname = 'bobby';
++-------+---------+---------------+------------+------------+--------+
+| empno | empname | address       | dob        | doj        | salary |
++-------+---------+---------------+------------+------------+--------+
+| a-103 | bobby   | p.p. colony   | 1973-05-07 | 2002-05-07 |  12000 |
+| c-101 | bobby   | behala cal-34 | 1970-05-07 | 2002-05-07 |   5000 |
++-------+---------+---------------+------------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-------+----------+--------------------+------------+------------+--------+
+| empno | empname  | address            | dob        | doj        | salary |
++-------+----------+--------------------+------------+------------+--------+
+| a-101 | suman    | 20 convent road    | 1976-02-03 | 2003-05-05 |  20000 |
+| a-103 | bobby    | p.p. colony        | 1973-05-07 | 2002-05-07 |  12000 |
+| b-101 | shekhar  | bidhannagar kol-66 | 1971-09-08 | 2002-07-07 |  14000 |
+| c-101 | bobby    | behala cal-34      | 1970-05-07 | 2002-05-07 |   5000 |
+| a-105 | sugoutam | new market cal-71  | 1968-05-08 | 2002-07-03 |  15000 |
+| a-104 | bikas    | p.p. colony        | 1973-05-07 | 2002-05-07 |  15000 |
+| a-109 | sumanta  | p.p. colony        | 1973-05-07 | 2002-05-07 |  12000 |
++-------+----------+--------------------+------------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> delete from employees where empno = 'a-109';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employees;
++-------+----------+--------------------+------------+------------+--------+
+| empno | empname  | address            | dob        | doj        | salary |
++-------+----------+--------------------+------------+------------+--------+
+| a-101 | suman    | 20 convent road    | 1976-02-03 | 2003-05-05 |  20000 |
+| a-103 | bobby    | p.p. colony        | 1973-05-07 | 2002-05-07 |  12000 |
+| b-101 | shekhar  | bidhannagar kol-66 | 1971-09-08 | 2002-07-07 |  14000 |
+| c-101 | bobby    | behala cal-34      | 1970-05-07 | 2002-05-07 |   5000 |
+| a-105 | sugoutam | new market cal-71  | 1968-05-08 | 2002-07-03 |  15000 |
+| a-104 | bikas    | p.p. colony        | 1973-05-07 | 2002-05-07 |  15000 |
++-------+----------+--------------------+------------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql>
